@@ -1,0 +1,24 @@
+Write a class with a member function that accepts two parameters, numThreads and maxNumber.
+This method should spawn numThread threads.
+Each thread should continue printing a thread identifier and a non-sequential, random number between 0 and maxNumber, inclusive, on a new line till all numbers are printed.
+The constraint is that no thread should print a number that has already been printed by it or another thread spawned along with it.
+
+e.g.
+
+Calling code:
+
+NumPrinter n = new NumPrinter()
+n.print(5,10)
+
+Output:
+t1-1
+t4-7
+t3-6
+t5-5
+t2-3
+t2-2
+t4-4
+t3-9
+t5-0
+t4-10
+t5-8
