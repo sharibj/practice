@@ -3,7 +3,7 @@ This repo will contain the solutions to all the problems/puzzles I solve in my f
 
 Number of total programs in this repo so far: (Keeps updating)
 
-# 6
+# 7
 
 1 - You Can Go Your Own Way (Codejam 19) [TDD]
 
@@ -16,3 +16,5 @@ Number of total programs in this repo so far: (Keeps updating)
 5 - Multithreaded Card Game (Random) [Java 8]
 
 6 - Rotate Linked List, n elements to the right (Random)
+
+7 - Java Visitor Pattern (HackerRank)
