@@ -2,9 +2,13 @@
 !.gitignore
 /.classpath
 /.project
+/.settings
 /.settings/org.eclipse.jdt.core.prefs
 /.settings/org.eclipse.m2e.core.prefs
 
-/.settings/
-/src/main/java/tdd/
-/src/test/
+/src/main/java/tdd/shopping
+/src/test/java/tdd/shopping
+
+#/.settings/
+#/src/main/java/tdd/
+#/src/test/
