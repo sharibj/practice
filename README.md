@@ -3,7 +3,7 @@ This repo will contain the solutions to all the problems/puzzles I solve in my f
 
 Number of total programs in this repo so far: (Keeps updating)
 
-# 9
+# 10
 
 1 - You Can Go Your Own Way (Codejam 19) [TDD]
 
@@ -22,3 +22,5 @@ Number of total programs in this repo so far: (Keeps updating)
 8 - IP address validation (HackerRank) [Java 8]
 
 9 - Java 1D Array (HackerRank)
+
+10 - 'TDD by example' by Kent Beck - Money problem hands on [TDD] 
