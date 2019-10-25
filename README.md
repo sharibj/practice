@@ -23,6 +23,8 @@ Number of total programs in this repo so far: (Keeps updating)
 
 9 - Java 1D Array (HackerRank)
 
-10 - 'TDD by example' by Kent Beck - Money problem hands on [TDD] 
+10 - 'TDD by example' by Kent Beck - Money problem hands on [TDD]
 
-11 - Conway's Game of Life [Java 8] [TDD]
+11 - Shopping Cart [TDD]
+
+12 - Conway's Game of Life [Java 8] [TDD]
