@@ -1,0 +1,45 @@
+Story 1
+1) Add 5 dove soaps to cart each 10/-
+2) display total of cart to be 50
+
+
+1) Add 5 dove soaps to cart each 10/-
+2) add 3 axe deo to cart each 15/-
+3) display total to be 95
+
+
+-------------
+
+Story 2
+Offer:
+Dove: Buy 2 get 1 free
+Axe: Buy 3 get 1 free
+
+1) Add 5 dove saps to cart each 10
+2) Display total of cart to be 40
+
+
+1) Add 5 dove soaps to cart each 10/-
+2) add 5 axe deo to cart each 15/-
+3) display total to be 100/-
+
+---------------
+
+Story 3
+
+1) Add 5 colgate toothpaste each 10/- with offer buy2Get10%OffOn3rd
+2) Display total of cart to be 49
+
+---------
+
+Sroty 4
+Offer:
+Dove: Buy 2 get 1 free
+Axe: Buy 3 get 1 free
+ 
+1) Add 5 dove saps to cart each 10
+2) add 5 axe deo to cart each 15/-
+3) Add 5 colgate toothpaste each 10/- with offer buy2Get10%OffOn3rd
+4) Add 5 toothbrush each 20/- with no offer
+3) display total to be xyz/-
+if(total > 30) give 10% off;

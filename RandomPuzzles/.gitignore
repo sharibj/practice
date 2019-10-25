@@ -6,9 +6,6 @@
 /.settings/org.eclipse.jdt.core.prefs
 /.settings/org.eclipse.m2e.core.prefs
 
-/src/main/java/tdd/shopping
-/src/test/java/tdd/shopping
-
 #/.settings/
 #/src/main/java/tdd/
 #/src/test/
