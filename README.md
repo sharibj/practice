@@ -3,7 +3,7 @@ This repo will contain the solutions to all the problems/puzzles I solve in my f
 
 Number of total programs in this repo so far: (Keeps updating)
 
-# 12
+# 14
 
 1 - You Can Go Your Own Way (Codejam 19) [TDD]
 
@@ -28,3 +28,7 @@ Number of total programs in this repo so far: (Keeps updating)
 11 - Shopping Cart [TDD]
 
 12 - Conway's Game of Life [Java 8] [TDD]
+
+13 - Number Guessing [google kickstart]
+
+14 - Mural [google kickstart]
