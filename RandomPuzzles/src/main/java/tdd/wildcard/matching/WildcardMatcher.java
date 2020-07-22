@@ -1,52 +1,42 @@
 package tdd.wildcard.matching;
 
 public class WildcardMatcher {
+    private static final String STAR = "*";
+
     public boolean isMatch(String s, String p) {
-        if (!p.contains("*")) {
+        if (!p.contains(STAR)) {
             return equalStrings(s, p);
         }
         p = replaceMultipleStarOccurrenceWithJustOne(p);
-        if (p.startsWith("*")) {
-            return isMatchWhenStartsWithStar(s, p);
+        String head = getHeadOfPattern(p);
+        String body = getBodyOfPattern(p);
+        String tail = getTailOfPattern(p);
+
+        if (head != null && s != null) {
+            s = verifyHeadAndGetRemainderString(s, head);
         }
-        if (s.isEmpty() && !p.isEmpty()) {
-            return false;
+        if (tail != null && s != null) {
+            s = verifyTailAndGetRemainderString(s, tail);
         }
-        if (p.startsWith("?")) {
-            return isMatch(s.substring(1), p.substring(1));
+        if (body != null && s != null) {
+            return body.equals(STAR) ?
+                   true : isMatchWhenPatternStartsAndEndsWithStar(s, body);
         }
-        if (s.charAt(0) != p.charAt(0)) {
-            return false;
-        } else {
-            return isMatch(s.substring(1), p.substring(1));
-        }
+        return "".equals(s);
     }
 
-    public boolean isMatchWhenStartsWithStar(String str, String pattern) {
-        if (pattern.length() == 1) {
-            return true;
-        }
-        String patternSubstring = pattern.substring(1);
-        if (patternSubstring.contains("*")) {
-            return isMatchWhenStartsWithStarAndHasMoreStars(str, pattern);
-        }
-        return equalStrings(str.substring(str.length() - patternSubstring.length()),
-                            patternSubstring);
-    }
-
-    public boolean isMatchWhenStartsWithStarAndHasMoreStars(String str, String pattern) {
-        boolean matchFound = false;
+    public boolean isMatchWhenPatternStartsAndEndsWithStar(String str, String pattern) {
         int head = 1;
-        int tail = pattern.indexOf("*", head);
-        String subPattern = pattern.substring(head, tail);
-
-        int index = getIndexOfSubstring(str, subPattern);
-        while (index >= 0 && !matchFound) {
-            matchFound = matchFound || isMatch(str.substring(index + subPattern.length()),
-                                               pattern.substring(tail));
-            index = str.indexOf(subPattern);
+        while (head < pattern.length()) {
+            String patternBetweenTwoStars = trimStringTillNextStar(pattern, head);
+            int index = getIndexOfSubstring(str, patternBetweenTwoStars);
+            if (index == -1) {
+                return false;
+            }
+            str = str.substring(index + patternBetweenTwoStars.length());
+            head += patternBetweenTwoStars.length() + 1;
         }
-        return matchFound;
+        return true;
     }
 
     private int getIndexOfSubstring(String str, String subString) {
@@ -76,7 +66,7 @@ public class WildcardMatcher {
     }
 
     public String replaceMultipleStarOccurrenceWithJustOne(String pattern) {
-        int index = pattern.indexOf("**");
+        int index = pattern.indexOf(STAR + STAR);
         if (index == -1) {
             return pattern;
         }
@@ -88,5 +78,78 @@ public class WildcardMatcher {
         }
         return pattern.substring(0, index) + replaceMultipleStarOccurrenceWithJustOne(
                 pattern.substring(index + 1));
+    }
+
+    public String trimStringTillNextStar(String str, int beginIndex) {
+        int starCharIndex = str.indexOf(STAR, beginIndex);
+        if (starCharIndex < 0) {
+            return str.substring(beginIndex);
+        } else {
+            return str.substring(beginIndex, starCharIndex);
+        }
+    }
+
+    public String getHeadOfPattern(String pattern) {
+        if (pattern.contains(STAR)) {
+            if (pattern.startsWith(STAR)) {
+                return null;
+            } else {
+                return pattern.substring(0, pattern.indexOf(STAR));
+            }
+        } else {
+            return pattern;
+        }
+    }
+
+    public String getTailOfPattern(String pattern) {
+        if (pattern.contains(STAR)) {
+            if (pattern.endsWith(STAR)) {
+                return null;
+            } else {
+                return pattern.substring(pattern.lastIndexOf(STAR) + 1);
+            }
+        } else {
+            return null;
+        }
+    }
+
+    public String getBodyOfPattern(String pattern) {
+        if (pattern.contains(STAR)) {
+            int start = pattern.indexOf(STAR);
+            int end = pattern.lastIndexOf(STAR);
+            if (start == end) {
+                return STAR;
+            } else {
+                return pattern.substring(start, end + 1);
+            }
+        } else {
+            return null;
+        }
+    }
+
+    public String verifyHeadAndGetRemainderString(String str, String pattern) {
+        int remainderLength = str.length() - pattern.length();
+        if (remainderLength < 0) {
+            return null;
+        }
+        String beginString = str.substring(0, pattern.length());
+        if (equalStrings(beginString, pattern)) {
+            return str.substring(pattern.length());
+        } else {
+            return null;
+        }
+    }
+
+    public String verifyTailAndGetRemainderString(String str, String pattern) {
+        int remainderLength = str.length() - pattern.length();
+        if (remainderLength < 0) {
+            return null;
+        }
+        String endString = str.substring(remainderLength);
+        if (equalStrings(endString, pattern)) {
+            return str.substring(0, remainderLength);
+        } else {
+            return null;
+        }
     }
 }

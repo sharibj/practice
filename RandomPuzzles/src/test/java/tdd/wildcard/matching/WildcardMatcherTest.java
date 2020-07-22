@@ -19,6 +19,58 @@ public class WildcardMatcherTest {
     }
 
     @Test
+    void testGetHeadOfPattern() {
+        assertEquals("", matcher.getHeadOfPattern(""));
+        assertEquals("abc", matcher.getHeadOfPattern("abc"));
+        assertEquals("xyz", matcher.getHeadOfPattern("xyz*"));
+        assertEquals("abc", matcher.getHeadOfPattern("abc*def"));
+        assertEquals("xyz", matcher.getHeadOfPattern("xyz*def*"));
+        assertEquals("abc", matcher.getHeadOfPattern("abc*xyz*def"));
+        assertEquals(null, matcher.getHeadOfPattern("*xyz*qwe"));
+    }
+
+    @Test
+    void testGetBodyOfPattern() {
+        assertEquals(null, matcher.getBodyOfPattern(""));
+        assertEquals(null, matcher.getBodyOfPattern("abc"));
+        assertEquals("*", matcher.getBodyOfPattern("xyz*"));
+        assertEquals("*", matcher.getBodyOfPattern("abc*def"));
+        assertEquals("*def*", matcher.getBodyOfPattern("xyz*def*"));
+        assertEquals("*xyz*", matcher.getBodyOfPattern("abc*xyz*def"));
+        assertEquals("*xyz*", matcher.getBodyOfPattern("*xyz*qwe"));
+        assertEquals("*xyz*qwe*", matcher.getBodyOfPattern("abc*xyz*qwe*def"));
+    }
+
+    @Test
+    void testGetTailOfPattern() {
+        assertEquals(null, matcher.getTailOfPattern(""));
+        assertEquals(null, matcher.getTailOfPattern("abc"));
+        assertEquals(null, matcher.getTailOfPattern("xyz*"));
+        assertEquals("def", matcher.getTailOfPattern("abc*def"));
+        assertEquals(null, matcher.getTailOfPattern("xyz*def*"));
+        assertEquals("def", matcher.getTailOfPattern("abc*xyz*def"));
+        assertEquals("qwe", matcher.getTailOfPattern("*xyz*qwe"));
+    }
+
+    @Test
+    void testVerifyHeadAndGetRemainderString() {
+        assertEquals("", matcher.verifyHeadAndGetRemainderString("", ""));
+        assertEquals("", matcher.verifyHeadAndGetRemainderString("abc", "abc"));
+        assertEquals("xyz", matcher.verifyHeadAndGetRemainderString("abcxyz", "abc"));
+        assertEquals(null, matcher.verifyHeadAndGetRemainderString("xyz", "abc"));
+        assertEquals(null, matcher.verifyHeadAndGetRemainderString("aab", "b"));
+    }
+
+    @Test
+    void testVerifyTailAndGetRemainderString() {
+        assertEquals("", matcher.verifyTailAndGetRemainderString("", ""));
+        assertEquals("", matcher.verifyTailAndGetRemainderString("abc", "abc"));
+        assertEquals("abc", matcher.verifyTailAndGetRemainderString("abcxyz", "xyz"));
+        assertEquals(null, matcher.verifyTailAndGetRemainderString("xyz", "abc"));
+        assertEquals(null, matcher.verifyTailAndGetRemainderString("baa", "b"));
+    }
+
+    @Test
     void testUtilityMethod_replaceMutipleStarOccurenceWithJustOne() {
         List<String> inputs = new ArrayList<>();
         List<String> outputs = new ArrayList<>();
@@ -41,7 +93,7 @@ public class WildcardMatcherTest {
         }
 
     }
-
+/*
     @Test
     void testUtilityMethod_isMatchWhenStartsWithStar() {
         List<String> inputStrings = new ArrayList<>();
@@ -71,7 +123,7 @@ public class WildcardMatcherTest {
                         );
         }
 
-    }
+    }*/
 
     @Test
     void testUtilityMethod_isMatchWhenStartsWithStarAndHasMoreStars() {
@@ -106,13 +158,29 @@ public class WildcardMatcherTest {
 
         for (int index = 0; index < inputStrings.size(); index++) {
             assertEquals(outputs.get(index),
-                         matcher.isMatchWhenStartsWithStarAndHasMoreStars(
+                         matcher.isMatchWhenPatternStartsAndEndsWithStar(
                                  inputStrings.get(index),
                                  inputPatterns.get(index))
                         );
         }
 
     }
+
+    @Test
+    void testUtilityMethod_trimStringTillNextStar() {
+        assertEquals("ab", matcher.trimStringTillNextStar("ab*c", 0));
+        assertEquals("ab", matcher.trimStringTillNextStar("ab*", 0));
+        assertEquals("ab", matcher.trimStringTillNextStar("ab", 0));
+        assertEquals("b", matcher.trimStringTillNextStar("ab*c", 1));
+    }
+/*
+    @Test
+    void testUtilityMethod_getStringAfterNextStar() {
+        assertEquals("*c", matcher.getStringAfterNextStar("ab*c", 0));
+        assertEquals("*", matcher.getStringAfterNextStar("ab*", 0));
+        assertEquals("ab", matcher.getStringAfterNextStar("ab", 0));
+        assertEquals("*c", matcher.getStringAfterNextStar("*b*c", 1));
+    }*/
 
     @Test
     void whenNothingMatches_thenFalse() {
@@ -262,7 +330,7 @@ public class WildcardMatcherTest {
         assertFalse(result);
     }
 
-    //@Test
+    @Test
     void testLargeInput() {
         // given
         String str =
@@ -272,6 +340,56 @@ public class WildcardMatcherTest {
         // when
         boolean result = matcher.isMatch(str, pattern);
         // then
+        assertFalse(result);
+    }
+
+    @Test
+    void test1() {
+        // given
+        String str =
+                "aa";
+        String pattern =
+                "a*";
+        // when
+        boolean result = matcher.isMatch(str, pattern);
+        // then
         assertTrue(result);
+    }
+
+    @Test
+    void test2() {
+        // given
+        String str =
+                "abce";
+        String pattern =
+                "abc*??";
+        // when
+        boolean result = matcher.isMatch(str, pattern);
+        // then
+        assertFalse(result);
+
+        // given
+        str = "abaaaa";
+        pattern = "*?***b";
+        // when
+        result = matcher.isMatch(str, pattern);
+        // then
+        assertFalse(result);
+
+        // given
+        str = "aaaa";
+        pattern = "***a";
+        // when
+        result = matcher.isMatch(str, pattern);
+        // then
+        assertTrue(result);
+
+        // given
+        str = "aaab";
+        pattern = "b**";
+        // when
+        result = matcher.isMatch(str, pattern);
+        // then
+        assertFalse(result);
     }
 }
