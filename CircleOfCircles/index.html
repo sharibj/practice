@@ -1,0 +1,25 @@
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Circle of circles</title>
+    <script src="main.js"></script>
+    <link rel="stylesheet" href="main.css">
+</head>
+<body>
+<div class="row content">
+    <div class="column left">
+        <div class="form column">
+            <span class="input-title">Comma separated diameters:</span>
+            <input id="diameter_input" type="text" value="125,125,100,100,100,100,100,100">
+            <button onclick="onClickForCalculateButton(true)">Calculate</button>
+        </div>
+        <span id="logs" class="column"></span>
+    </div>
+    <div class="column right">
+        <div class="canvas-container">
+            <canvas id="myCanvas"></canvas>
+        </div>
+    </div>
+</div>
+</body>
+</html>

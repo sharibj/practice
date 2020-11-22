@@ -1,0 +1,86 @@
+body {
+    margin: 0;
+}
+
+.column {
+    display: flex;
+    flex-direction: column;
+}
+
+.row {
+    display: flex;
+    flex-direction: row;
+}
+
+.content {
+    width: 96vw;
+    height: 96vh;
+    padding: 2vw;
+    left: 0;
+    top: 0;
+    overflow: hidden;
+    position: fixed;
+}
+
+.content .left {
+    width: 28vw;
+    height: 96vh;
+    overflow-wrap: normal;
+}
+
+.content .right {
+    width: 68vw;
+    height: 96vh;
+    align-items: center;
+}
+
+.content .left .form {
+    width: 100%;
+}
+
+.content .left .form .input-title {
+    display: block;
+    margin-bottom: 0.5vh;
+    width: 100%;
+}
+
+.content .left .form input,
+.content .left .form button {
+    display: block;
+    margin-bottom: 1vh;
+    width: 100%;
+}
+
+button {
+    cursor: pointer;
+}
+
+#logs {
+    overflow: auto;
+    width: 100%;
+    overflow-wrap: normal;
+}
+
+@media (orientation: landscape) {
+    .content .right .canvas-container {
+        width: 96vh;
+        height: 96vh;
+    }
+
+    .content .left .form input,
+    .content .left .form button {
+        height: 4vw;
+    }
+}
+
+@media (orientation: portrait) {
+    .content .right .canvas-container {
+        width: 68vw;
+        height: 68vw;
+    }
+
+    .content .left .form input,
+    .content .left .form button {
+        height: 4vh;
+    }
+}
